@@ -1,0 +1,12 @@
+[
+    {
+        "model": "LinearRegression",
+        "rmse": 3.14,
+        "r2": 0.88
+    },
+    {
+        "model": "RandomForest",
+        "rmse": 2.71,
+        "r2": 0.92
+    }
+]
