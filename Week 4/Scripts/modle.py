@@ -1,10 +1,14 @@
 # scripts/model.py
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
+import lightgbm as lgb
+import xgboost as xgb
 
 MODEL_MAPPING = {
     'LinearRegression': LinearRegression,
-    'RandomForest': RandomForestRegressor
+    'RandomForest': RandomForestRegressor,
+    'LGBM': lgb.LGBMRegressor,
+    'XGBoost': xgb.XGBRegressor
 }
 
 def build_model(model_name, **kwargs):

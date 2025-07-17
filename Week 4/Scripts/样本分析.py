@@ -6,8 +6,10 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 设置图表风格
-sns.set(style="whitegrid")
+# 设置图表风格并解决中文显示问题
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+sns.set(style="whitegrid", font='SimHei')
 plt.rcParams['font.size'] = 12
 plt.rcParams['figure.figsize'] = (10, 6)
 
@@ -95,10 +97,14 @@ def cross_validation_analysis():
     X = select_features(data_encoded)
     y = data['Low Price']
 
+    # 获取特征名称（用于后续可视化）
+    feature_names = X.columns.tolist()
+
     # 交叉验证
     kf = KFold(n_splits=3, shuffle=True, random_state=42)
     fold_results = []
     all_predictions = pd.DataFrame()
+    models = []  # 存储每个fold的模型
 
     for fold, (train_idx, test_idx) in enumerate(kf.split(X)):
         print(f"\n=== Fold {fold + 1} ===")
@@ -115,6 +121,7 @@ def cross_validation_analysis():
             random_state=42
         )
         model.fit(X_train, y_train)
+        models.append(model)  # 保存模型
 
         # 在测试集上进行预测
         y_pred = model.predict(X_test)
@@ -147,11 +154,11 @@ def cross_validation_analysis():
         fold_analysis_df['Fold'] = fold + 1
         all_predictions = pd.concat([all_predictions, fold_analysis_df])
 
-    return fold_results, all_predictions
+    return fold_results, all_predictions, models, feature_names
 
 
 # 6. 结果可视化
-def visualize_results(all_predictions):
+def visualize_results(all_predictions, models, feature_names):
     # 创建实际价格与预测价格对比图
     plt.figure(figsize=(10, 6))
     sns.scatterplot(data=all_predictions, x='Low Price', y='Predicted Price', hue='Fold', palette='viridis', s=100)
@@ -160,6 +167,7 @@ def visualize_results(all_predictions):
     plt.xlabel('实际价格 ($)')
     plt.ylabel('预测价格 ($)')
     plt.grid(True)
+    plt.tight_layout()  # 确保标签不被裁剪
     plt.savefig('price_comparison.png')
     plt.show()
 
@@ -170,23 +178,33 @@ def visualize_results(all_predictions):
     plt.xlabel('绝对误差 ($)')
     plt.ylabel('样本数量')
     plt.grid(True)
+    plt.tight_layout()
     plt.savefig('error_distribution.png')
     plt.show()
 
-    # 创建特征重要性图（使用最后一次训练的模型）
-    plt.figure(figsize=(10, 6))
-    feature_importance = pd.DataFrame({
-        'Feature': ['City', 'Package', 'Variety', 'Color', 'Month'],
-        'Importance': [0.35, 0.25, 0.20, 0.15, 0.05]  # 示例值
-    })
-    sns.barplot(data=feature_importance, x='Importance', y='Feature', palette='Blues_d')
-    plt.title('特征重要性')
-    plt.savefig('feature_importance.png')
-    plt.show()
+    # 创建特征重要性图（使用最后一个fold的模型）
+    if models and feature_names:
+        plt.figure(figsize=(10, 6))
+        last_model = models[-1]
+        feature_importance = last_model.feature_importances_
+
+        # 创建特征重要性DataFrame
+        importance_df = pd.DataFrame({
+            'Feature': feature_names,
+            'Importance': feature_importance
+        }).sort_values(by='Importance', ascending=False)
+
+        sns.barplot(data=importance_df, x='Importance', y='Feature', palette='Blues_d')
+        plt.title('特征重要性分析')
+        plt.tight_layout()
+        plt.savefig('feature_importance.png')
+        plt.show()
+    else:
+        print("无法生成特征重要性图：缺少模型或特征名称")
 
 
 # 7. 结果展示
-def display_results(fold_results, all_predictions):
+def display_results(fold_results, all_predictions, models, feature_names):
     # 打印每个fold的结果
     for result in fold_results:
         print(f"\nFold {result['fold']} 结果:")
@@ -202,29 +220,19 @@ def display_results(fold_results, all_predictions):
         print(result['incorrect_samples'][['City Name', 'Package', 'Variety', 'Color',
                                            'Month', 'Low Price', 'Predicted Price', 'Absolute Error']])
 
-    # 整体性能指标
-    overall_rmse = np.sqrt(mean_squared_error(all_predictions['Low Price'], all_predictions['Predicted Price']))
-    overall_mae = mean_absolute_error(all_predictions['Low Price'], all_predictions['Predicted Price'])
-    overall_r2 = r2_score(all_predictions['Low Price'], all_predictions['Predicted Price'])
-
-    print("\n" + "=" * 50)
-    print(f"整体性能:")
-    print(f"- RMSE: {overall_rmse:.2f}")
-    print(f"- MAE: {overall_mae:.2f}")
-    print(f"- R²: {overall_r2:.2f}")
 
     # 保存结果到CSV
     all_predictions.to_csv('pumpkin_price_predictions.csv', index=False)
     print("\n预测结果已保存到: pumpkin_price_predictions.csv")
 
     # 可视化结果
-    visualize_results(all_predictions)
+    visualize_results(all_predictions, models, feature_names)
 
 
 # 主函数
 def main():
-    results, all_predictions = cross_validation_analysis()
-    display_results(results, all_predictions)
+    results, all_predictions, models, feature_names = cross_validation_analysis()
+    display_results(results, all_predictions, models, feature_names)
 
 
 if __name__ == "__main__":

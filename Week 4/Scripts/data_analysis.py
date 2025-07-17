@@ -1,8 +1,10 @@
+# scripts/data_analysis.py
 import pandas as pd
 import numpy as np
 from datetime import datetime
 from sklearn.model_selection import train_test_split
-
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 
 def clean_data(df):
     """
@@ -53,7 +55,18 @@ def clean_data(df):
     # 只保留需要的列并删除缺失值
     df_model = df[feature_cols + [target_col]].dropna()
 
-    # 返回特征矩阵和目标向量
+    # 对分类特征进行编码
+    label_encoders = {}
+    for col in feature_cols:
+        if df_model[col].dtype == 'object':
+            le = LabelEncoder()
+            df_model[col] = le.fit_transform(df_model[col])
+            label_encoders[col] = le
+
+    # 对数值型特征进行填充
+    imputer = SimpleImputer(strategy='mean')
+    df_model[feature_cols] = imputer.fit_transform(df_model[feature_cols])
+
     return df_model[feature_cols], df_model[target_col]
 
 def split_data(X, y, test_size=0.2, random_state=42):

@@ -1,160 +1,21 @@
 [
     {
-        "model_name": "LinearRegression",
-        "model_params": {},
-        "fea_encoding": "one-hot",
-        "0_fold_train_performance": {
-            "rmse": "37.66",
-            "mae": "24.92",
-            "r2": "0.77"
-        },
-        "0_fold_test_performance": {
-            "rmse": "32.29",
-            "mae": "21.64",
-            "r2": "0.84"
-        },
-        "1_fold_train_performance": {
-            "rmse": "33.64",
-            "mae": "21.51",
-            "r2": "0.82"
-        },
-        "1_fold_test_performance": {
-            "rmse": "40.61",
-            "mae": "26.98",
-            "r2": "0.75"
-        },
-        "2_fold_train_performance": {
-            "rmse": "34.38",
-            "mae": "23.24",
-            "r2": "0.82"
-        },
-        "2_fold_test_performance": {
-            "rmse": "40.93",
-            "mae": "24.65",
-            "r2": "0.71"
-        },
-        "average_train_performance": {
-            "rmse": "35.23",
-            "mae": "23.22",
-            "r2": "0.80"
-        },
-        "average_test_performance": {
-            "rmse": "37.94",
-            "mae": "24.42",
-            "r2": "0.77"
-        }
-    },
-    {
-        "model_name": "LinearRegression",
-        "model_params": {},
-        "fea_encoding": "label",
-        "0_fold_train_performance": {
-            "rmse": "67.19",
-            "mae": "49.74",
-            "r2": "0.28"
-        },
-        "0_fold_test_performance": {
-            "rmse": "78.81",
-            "mae": "68.44",
-            "r2": "0.05"
-        },
-        "1_fold_train_performance": {
-            "rmse": "68.14",
-            "mae": "51.83",
-            "r2": "0.25"
-        },
-        "1_fold_test_performance": {
-            "rmse": "81.79",
-            "mae": "67.46",
-            "r2": "-0.01"
-        },
-        "2_fold_train_performance": {
-            "rmse": "71.99",
-            "mae": "54.66",
-            "r2": "0.22"
-        },
-        "2_fold_test_performance": {
-            "rmse": "74.35",
-            "mae": "59.64",
-            "r2": "0.05"
-        },
-        "average_train_performance": {
-            "rmse": "69.11",
-            "mae": "52.08",
-            "r2": "0.25"
-        },
-        "average_test_performance": {
-            "rmse": "78.32",
-            "mae": "65.18",
-            "r2": "0.03"
-        }
-    },
-    {
         "model_name": "RandomForest",
         "model_params": {
             "n_estimators": 100,
             "random_state": 42,
             "n_jobs": 2
         },
-        "fea_encoding": "one-hot",
-        "0_fold_train_performance": {
-            "rmse": "21.07",
-            "mae": "10.71",
-            "r2": "0.93"
-        },
-        "0_fold_test_performance": {
-            "rmse": "26.91",
-            "mae": "12.62",
-            "r2": "0.89"
-        },
-        "1_fold_train_performance": {
-            "rmse": "20.03",
-            "mae": "9.62",
-            "r2": "0.94"
-        },
-        "1_fold_test_performance": {
-            "rmse": "26.87",
-            "mae": "14.22",
-            "r2": "0.89"
-        },
-        "2_fold_train_performance": {
-            "rmse": "17.09",
-            "mae": "8.88",
-            "r2": "0.96"
-        },
-        "2_fold_test_performance": {
-            "rmse": "33.75",
-            "mae": "15.07",
-            "r2": "0.81"
-        },
-        "average_train_performance": {
-            "rmse": "19.40",
-            "mae": "9.74",
-            "r2": "0.94"
-        },
-        "average_test_performance": {
-            "rmse": "29.18",
-            "mae": "13.97",
-            "r2": "0.86"
-        }
-    },
-    {
-        "model_name": "RandomForest",
-        "model_params": {
-            "n_estimators": 100,
-            "random_state": 42,
-            "n_jobs": 2
-        },
-        "fea_encoding": "label",
+        "fea_encoding": "ordinal",
         "0_fold_train_performance": {
             "rmse": "21.11",
             "mae": "10.66",
             "r2": "0.93"
         },
         "0_fold_test_performance": {
-            "rmse": "128.87",
-            "mae": "100.99",
-            "r2": "-1.53"
+            "rmse": "24.85",
+            "mae": "11.76",
+            "r2": "0.91"
         },
         "1_fold_train_performance": {
             "rmse": "20.21",
@@ -162,9 +23,9 @@
             "r2": "0.93"
         },
         "1_fold_test_performance": {
-            "rmse": "143.41",
-            "mae": "119.01",
-            "r2": "-2.11"
+            "rmse": "28.11",
+            "mae": "14.56",
+            "r2": "0.88"
         },
         "2_fold_train_performance": {
             "rmse": "17.41",
@@ -172,9 +33,9 @@
             "r2": "0.95"
         },
         "2_fold_test_performance": {
-            "rmse": "130.76",
-            "mae": "106.76",
-            "r2": "-1.92"
+            "rmse": "33.48",
+            "mae": "15.63",
+            "r2": "0.81"
         },
         "average_train_performance": {
             "rmse": "19.58",
@@ -182,9 +43,107 @@
             "r2": "0.94"
         },
         "average_test_performance": {
-            "rmse": "134.35",
-            "mae": "108.92",
-            "r2": "-1.86"
+            "rmse": "28.81",
+            "mae": "13.98",
+            "r2": "0.86"
+        }
+    },
+    {
+        "model_name": "LGBM",
+        "model_params": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 2
+        },
+        "fea_encoding": "ordinal",
+        "0_fold_train_performance": {
+            "rmse": "26.34",
+            "mae": "15.47",
+            "r2": "0.89"
+        },
+        "0_fold_test_performance": {
+            "rmse": "27.70",
+            "mae": "16.22",
+            "r2": "0.88"
+        },
+        "1_fold_train_performance": {
+            "rmse": "24.77",
+            "mae": "14.19",
+            "r2": "0.90"
+        },
+        "1_fold_test_performance": {
+            "rmse": "32.07",
+            "mae": "18.57",
+            "r2": "0.84"
+        },
+        "2_fold_train_performance": {
+            "rmse": "25.49",
+            "mae": "15.15",
+            "r2": "0.90"
+        },
+        "2_fold_test_performance": {
+            "rmse": "33.02",
+            "mae": "18.43",
+            "r2": "0.81"
+        },
+        "average_train_performance": {
+            "rmse": "25.53",
+            "mae": "14.94",
+            "r2": "0.90"
+        },
+        "average_test_performance": {
+            "rmse": "30.93",
+            "mae": "17.74",
+            "r2": "0.85"
+        }
+    },
+    {
+        "model_name": "XGBoost",
+        "model_params": {
+            "n_estimators": 100,
+            "random_state": 42,
+            "n_jobs": 2
+        },
+        "fea_encoding": "ordinal",
+        "0_fold_train_performance": {
+            "rmse": "20.08",
+            "mae": "9.63",
+            "r2": "0.94"
+        },
+        "0_fold_test_performance": {
+            "rmse": "24.52",
+            "mae": "11.03",
+            "r2": "0.91"
+        },
+        "1_fold_train_performance": {
+            "rmse": "19.30",
+            "mae": "8.84",
+            "r2": "0.94"
+        },
+        "1_fold_test_performance": {
+            "rmse": "29.57",
+            "mae": "13.80",
+            "r2": "0.87"
+        },
+        "2_fold_train_performance": {
+            "rmse": "15.93",
+            "mae": "7.81",
+            "r2": "0.96"
+        },
+        "2_fold_test_performance": {
+            "rmse": "32.78",
+            "mae": "14.06",
+            "r2": "0.82"
+        },
+        "average_train_performance": {
+            "rmse": "18.44",
+            "mae": "8.76",
+            "r2": "0.95"
+        },
+        "average_test_performance": {
+            "rmse": "28.96",
+            "mae": "12.96",
+            "r2": "0.86"
         }
     }
 ]

@@ -1,3 +1,4 @@
+# scripts/feature_processing.py
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, LabelEncoder
 
@@ -9,12 +10,12 @@ def get_feature(train_x, test_x, encoding_method=None, encoding_columns=None):
 
     # 对分类特征进行编码
     if encoding_method == 'ordinal':
-        oe = OrdinalEncoder(handle_unknown="use_encoded_value", unknown_value=np.nan)
+        oe = OrdinalEncoder(handle_unknown='use_encoded_value', unknown_value=np.nan)
         oe.fit(train_x[encoding_columns])
         train_x_enc = oe.transform(train_x[encoding_columns])
         test_x_enc = oe.transform(test_x[encoding_columns])
     elif encoding_method == 'one-hot':
-        oe = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+        oe = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
         oe.fit(train_x[encoding_columns])
         train_x_enc = oe.transform(train_x[encoding_columns])
         test_x_enc = oe.transform(test_x[encoding_columns])

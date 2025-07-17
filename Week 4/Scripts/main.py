@@ -99,8 +99,8 @@ def run_batch():
         print(f"----------- {m_name} training done -------------\n")
 
     # 8. 保存结果
-    dict_to_json(outputs, "./output/output.json")
-    dict_to_table(outputs, "./output/output.csv")
+    # dict_to_json(outputs, "./output/output.json")
+    # dict_to_table(outputs, "./output/output1.csv")
     return outputs
 
 
